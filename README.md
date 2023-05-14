@@ -72,15 +72,15 @@ Análogo a insertar, el peor de los casos es que tenga que recorrer todos los no
 ### Quitar un elemento
 Análogo a buscar, el peor de los casos es que tenga que recorrer todos los elementos del árbol para llegar al elemento buscado y quitarlo. Complejidad O(n).
 <div align="center">
-<img width="70%" src="img/abb_quitar_hoja.png">
+<img width="70%" src="img/abb_borrar_hoja.png">
 </div>
 
 <div align="center">
-<img width="70%" src="img/abb_quitar_nodo_con_hijo.png">
+<img width="70%" src="img/abb_borrar_nodo_con_hijo.png">
 </div>
 
 <div align="center">
-<img width="70%" src="img/abb_quitar_nodo_hijos.png">
+<img width="70%" src="img/abb_borrar_nodo_hijos.png">
 </div>
 
 ### Recorrer un arbol (Inorden, Preorden, Postorden)
