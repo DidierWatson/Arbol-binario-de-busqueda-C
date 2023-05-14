@@ -24,6 +24,7 @@ Un árbol es una estructura no lineal de datos compuesta de nodos. Un árbol que
 
 <div align="center">
 <img width="70%" src="img/arbol_n_ario.png">
+<br> Árbol n-ario
 </div>
 
 ## ¿Qué es un arbol binario?
@@ -31,6 +32,7 @@ Es aquel árbol en donde cada nodo padre puede tener hasta dos hijos solamente.
 
 <div align="center">
 <img width="70%" src="img/arbol_binario.png">
+<br> Árbol binario
 </div>
 
 ## ¿Qué es un arbol binario de búsqueda? 
@@ -38,6 +40,7 @@ Es aquel árbol que además de ser binario (dos nodos hijo máximo por padre), c
 
 <div align="center">
 <img width="70%" src="img/arbol_binario_busqueda.png">
+<br> Árbol binario de búsqueda
 </div>
 
 ## Implementación
@@ -59,6 +62,7 @@ Con el comparador, la función decide por cual rama ir (si la comparación devue
 
 <div align="center">
 <img width="70%" src="img/abb_insertar.png">
+<br> Insertar un elemento en el árbol
 </div>
 
 ### Buscar un elemento
@@ -66,16 +70,20 @@ Análogo a insertar, el peor de los casos es que tenga que recorrer todos los no
 
 ### Quitar un elemento
 Análogo a buscar, el peor de los casos es que tenga que recorrer todos los elementos del árbol para llegar al elemento buscado y quitarlo. Complejidad O(n).
+
 <div align="center">
-<img width="70%" src="img/abb_quitar_hoja.png">
+<img width="70%" src="img/abb_borrar_hoja.png">
+<br> Quitar una hoja es caso más simple, solo hay que retirar el nodo deseado.
 </div>
 
 <div align="center">
-<img width="70%" src="img/abb_quitar_nodo_hijo.png">
+<img width="70%" src="img/abb_borrar_nodo_hijo.png">
+<br> Quitar un nodo con un hijo: El hijo toma el lugar del nodo padre.
 </div>
 
 <div align="center">
-<img width="70%" src="img/abb_quitar_nodo_hijos.png">
+<img width="70%" src="img/abb_borrar_nodo_hijos.png">
+<br> Quitar un nodo con dos hijos: el caso más complejo. Se debe buscar el predecesor inorden y colocarlo en el lugar del nodo a quitar.
 </div>
 
 ### Recorrer un arbol (Inorden, Preorden, Postorden)
@@ -83,6 +91,7 @@ En todos los casos, la complejidad es O(n), ya que debo recorrer todos los eleme
 
 <div align="center">
 <img width="70%" src="img/abb_recorrido.png">
+<br> Todos los recorridos de un abb y sus respectivos procedimientos.
 </div>
 
 ### Destruir el arbol
