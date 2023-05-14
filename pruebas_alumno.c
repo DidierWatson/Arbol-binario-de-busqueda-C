@@ -414,13 +414,197 @@ void iterar_parcialmente_un_arbol_devuelve_la_cantidad_correcta()
 		"Se iteran postorden parcialmente los elementos del arbol y devuelve la ctdad correcta");
 	abb_destruir_todo(arbol, destructor);
 }
-void pruebas_de_recorrido()
+void pruebas_de_iterador_interno()
 {
 	iterar_un_arbol_inexistente_devuelve_null();
 	iterar_un_arbol_vacio_devuelve_cero();
 	iterar_con_funcion_nula_devuelve_null();
 	iterar_todos_los_elementos_devuelve_la_cantidad_correcta();
 	iterar_parcialmente_un_arbol_devuelve_la_cantidad_correcta();
+}
+
+void recorrer_un_arbol_inexistente_inorden_devuelve_cero()
+{
+	size_t max_array = 3;
+	void *array[max_array];
+	pa2m_afirmar(!abb_recorrer(NULL, INORDEN, array, max_array),
+		     "Recorrer inorden un arbol inexistente devuelve cero");
+}
+
+void recorrer_un_arbol_inexistente_preorden_devuelve_cero()
+{
+	size_t max_array = 3;
+	void *array[max_array];
+	pa2m_afirmar(!abb_recorrer(NULL, PREORDEN, array, max_array),
+		     "Recorrer preorden un arbol inexistente devuelve cero");
+}
+
+void recorrer_un_arbol_inexistente_postorden_devuelve_cero()
+{
+	size_t max_array = 3;
+	void *array[max_array];
+	pa2m_afirmar(!abb_recorrer(NULL, POSTORDEN, array, max_array),
+		     "Recorrer postorden un arbol inexistente devuelve cero");
+}
+
+void recorrer_un_arbol_vacio_inorden_devuelve_cero()
+{
+	abb_t *arbol = abb_crear(comparador);
+	size_t max_array = 3;
+	void *array[max_array];
+	pa2m_afirmar(!abb_recorrer(arbol, INORDEN, array, max_array),
+		     "Recorrer inorden un arbol vacio devuelve cero");
+
+	abb_destruir(arbol);
+}
+
+void recorrer_un_arbol_vacio_predorden_devuelve_cero()
+{
+	abb_t *arbol = abb_crear(comparador);
+	size_t max_array = 3;
+	void *array[max_array];
+	pa2m_afirmar(!abb_recorrer(arbol, PREORDEN, array, max_array),
+		     "Recorrer preorden un arbol vacio devuelve cero");
+
+	abb_destruir(arbol);
+}
+
+void recorrer_un_arbol_vacio_postorden_devuelve_cero()
+{
+	abb_t *arbol = abb_crear(comparador);
+	size_t max_array = 3;
+	void *array[max_array];
+	pa2m_afirmar(!abb_recorrer(arbol, POSTORDEN, array, max_array),
+		     "Recorrer postorden un arbol vacio devuelve cero");
+
+	abb_destruir(arbol);
+}
+
+void recorrer_inorden_guarda_los_elementos_correctamente()
+{
+	abb_t *abb = abb_crear(comparador);
+	size_t tamanio_array = 6;
+	void *array[tamanio_array];
+	cosa_t *diez = crear_cosa(10);
+	cosa_t *siete = crear_cosa(7);
+	cosa_t *cuatro = crear_cosa(4);
+	cosa_t *nueve = crear_cosa(9);
+	cosa_t *diecisiete = crear_cosa(17);
+	cosa_t *quince = crear_cosa(15);
+	abb_insertar(abb, diez);
+	abb_insertar(abb, siete);
+	abb_insertar(abb, cuatro);
+	abb_insertar(abb, nueve);
+	abb_insertar(abb, diecisiete);
+	abb_insertar(abb, quince);
+
+	size_t recorridos_inorden =
+		abb_recorrer(abb, INORDEN, array, tamanio_array);
+	pa2m_afirmar(
+		recorridos_inorden == tamanio_array,
+		"Recorrer el arbol INORDEN retorna la cantidad de elementos recorridos correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[0]) == cuatro,
+		     "El primer elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[1]) == siete,
+		     "El segundo elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[2]) == nueve,
+		     "El tercero elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[3]) == diez,
+		     "El cuarto elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[4]) == quince,
+		     "El quinto elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[5]) == diecisiete,
+		     "El sexto elemento del array es el correspondiente.");
+	abb_destruir_todo(abb, destructor);
+}
+
+void recorrer_preorden_guarda_los_elementos_correctamente()
+{
+	abb_t *abb = abb_crear(comparador);
+	size_t tamanio_array = 6;
+	void *array[tamanio_array];
+	cosa_t *diez = crear_cosa(10);
+	cosa_t *siete = crear_cosa(7);
+	cosa_t *cuatro = crear_cosa(4);
+	cosa_t *nueve = crear_cosa(9);
+	cosa_t *diecisiete = crear_cosa(17);
+	cosa_t *quince = crear_cosa(15);
+	abb_insertar(abb, diez);
+	abb_insertar(abb, siete);
+	abb_insertar(abb, cuatro);
+	abb_insertar(abb, nueve);
+	abb_insertar(abb, diecisiete);
+	abb_insertar(abb, quince);
+
+	size_t recorridos_inorden =
+		abb_recorrer(abb, PREORDEN, array, tamanio_array);
+	pa2m_afirmar(
+		recorridos_inorden == tamanio_array,
+		"Recorrer el arbol PREORDEN retorna la cantidad de elementos recorridos correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[0]) == diez,
+		     "El primer elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[1]) == siete,
+		     "El segundo elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[2]) == cuatro,
+		     "El tercero elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[3]) == nueve,
+		     "El cuarto elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[4]) == diecisiete,
+		     "El quinto elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[5]) == quince,
+		     "El sexto elemento del array es el correspondiente.");
+	abb_destruir_todo(abb, destructor);
+}
+
+void recorrer_postorden_guarda_los_elementos_correctamente()
+{
+	abb_t *abb = abb_crear(comparador);
+	size_t tamanio_array = 6;
+	void *array[tamanio_array];
+	cosa_t *diez = crear_cosa(10);
+	cosa_t *siete = crear_cosa(7);
+	cosa_t *cuatro = crear_cosa(4);
+	cosa_t *nueve = crear_cosa(9);
+	cosa_t *diecisiete = crear_cosa(17);
+	cosa_t *quince = crear_cosa(15);
+	abb_insertar(abb, diez);
+	abb_insertar(abb, siete);
+	abb_insertar(abb, cuatro);
+	abb_insertar(abb, nueve);
+	abb_insertar(abb, diecisiete);
+	abb_insertar(abb, quince);
+
+	size_t recorridos_inorden =
+		abb_recorrer(abb, POSTORDEN, array, tamanio_array);
+	pa2m_afirmar(
+		recorridos_inorden == tamanio_array,
+		"Recorrer el arbol PREORDEN retorna la cantidad de elementos recorridos correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[0]) == cuatro,
+		     "El primer elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[1]) == nueve,
+		     "El segundo elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[2]) == siete,
+		     "El tercero elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[3]) == quince,
+		     "El cuarto elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[4]) == diecisiete,
+		     "El quinto elemento del array es el correspondiente.");
+	pa2m_afirmar((cosa_t *)(array[5]) == diez,
+		     "El sexto elemento del array es el correspondiente.");
+	abb_destruir_todo(abb, destructor);
+}
+
+void pruebas_de_recorrido()
+{
+	recorrer_un_arbol_inexistente_postorden_devuelve_cero();
+	recorrer_un_arbol_inexistente_preorden_devuelve_cero();
+	recorrer_un_arbol_inexistente_postorden_devuelve_cero();
+	recorrer_un_arbol_vacio_inorden_devuelve_cero();
+	recorrer_un_arbol_vacio_predorden_devuelve_cero();
+	recorrer_un_arbol_vacio_postorden_devuelve_cero();
+	recorrer_inorden_guarda_los_elementos_correctamente();
+	recorrer_preorden_guarda_los_elementos_correctamente();
+	recorrer_postorden_guarda_los_elementos_correctamente();
 }
 
 int main()
@@ -445,6 +629,8 @@ int main()
 	pa2m_nuevo_grupo("Pruebas de busqueda");
 	pruebas_de_busqueda();
 	pa2m_nuevo_grupo("Pruebas de iterador interno");
+	pruebas_de_iterador_interno();
+	pa2m_nuevo_grupo("Pruebas de recorridos");
 	pruebas_de_recorrido();
 	return pa2m_mostrar_reporte();
 }

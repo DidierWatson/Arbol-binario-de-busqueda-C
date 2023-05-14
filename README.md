@@ -24,7 +24,6 @@ Un árbol es una estructura no lineal de datos compuesta de nodos. Un árbol que
 
 <div align="center">
 <img width="70%" src="img/arbol_n_ario.png">
-<br> Árbol n-ario
 </div>
 
 ## ¿Qué es un arbol binario?
@@ -32,7 +31,6 @@ Es aquel árbol en donde cada nodo padre puede tener hasta dos hijos solamente.
 
 <div align="center">
 <img width="70%" src="img/arbol_binario.png">
-<br> Árbol binario
 </div>
 
 ## ¿Qué es un arbol binario de búsqueda? 
@@ -40,7 +38,6 @@ Es aquel árbol que además de ser binario (dos nodos hijo máximo por padre), c
 
 <div align="center">
 <img width="70%" src="img/arbol_binario_busqueda.png">
-<br> Árbol binario de búsqueda
 </div>
 
 ## Implementación
@@ -52,6 +49,11 @@ La mayor dificultad estuvo, en encontrar una manera de remover nodos del árbol 
 * En caso de tener un elemento repetido, se lo inserta a la izquierda.
 * En caso de tener que quitar un nodo con dos hijos, se busca como reemplazante al predecesor inorden. Este es el elemento más grande del subárbol izquierdo del nodo que se quiere quitar.
 
+## Esquema de memoria
+<div align="center">
+<img width="100%" src="img/diagrama_memoria.png">
+</div>
+
 ## Operaciones básicas del abb (y su complejidad)
 Crear arbol
 Esta función pide memoria para una estructura del tipo abb_t. Su complejidad es `O(1)`, ya que solamente crea la estructura y la devuelve.
@@ -61,8 +63,7 @@ Con el comparador, la función decide por cual rama ir (si la comparación devue
 `O(Log(n))` (particularmente es Logaritmo en base dos de n). Sin embargo, en esta implementación el árbol no se balancea, por lo tanto puede darse el caso que el árbol degenere en una lista, y por lo tanto, la complejidad del peor caso (que es el que nos interesa) es O(n). Se deben recorrer todos los elementos previos para insertar.
 
 <div align="center">
-<img width="70%" src="img/abb_insertar.png">
-<br> Insertar un elemento en el árbol
+<img width="70%" src="img/insercion_abb.png">
 </div>
 
 ### Buscar un elemento
@@ -70,20 +71,16 @@ Análogo a insertar, el peor de los casos es que tenga que recorrer todos los no
 
 ### Quitar un elemento
 Análogo a buscar, el peor de los casos es que tenga que recorrer todos los elementos del árbol para llegar al elemento buscado y quitarlo. Complejidad O(n).
-
 <div align="center">
-<img width="70%" src="img/abb_borrar_hoja.png">
-<br> Quitar una hoja es caso más simple, solo hay que retirar el nodo deseado.
+<img width="70%" src="img/abb_quitar_hoja.png">
 </div>
 
 <div align="center">
-<img width="70%" src="img/abb_borrar_nodo_hijo.png">
-<br> Quitar un nodo con un hijo: El hijo toma el lugar del nodo padre.
+<img width="70%" src="img/abb_quitar_nodo_con_hijo.png">
 </div>
 
 <div align="center">
-<img width="70%" src="img/abb_borrar_nodo_hijos.png">
-<br> Quitar un nodo con dos hijos: el caso más complejo. Se debe buscar el predecesor inorden y colocarlo en el lugar del nodo a quitar.
+<img width="70%" src="img/abb_quitar_nodo_hijos.png">
 </div>
 
 ### Recorrer un arbol (Inorden, Preorden, Postorden)
@@ -91,7 +88,6 @@ En todos los casos, la complejidad es O(n), ya que debo recorrer todos los eleme
 
 <div align="center">
 <img width="70%" src="img/abb_recorrido.png">
-<br> Todos los recorridos de un abb y sus respectivos procedimientos.
 </div>
 
 ### Destruir el arbol
