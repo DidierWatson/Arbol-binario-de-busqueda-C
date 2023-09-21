@@ -1,56 +1,98 @@
 # TDA ABB
 
-## Repositorio de (Nombre Apellido) - (Padrón) - (Mail)
+## Repositorio de Didier Erik Watson - 96064 - dwatson@fi.uba.ar
 
 - Para compilar:
 
 ```bash
-línea de compilación
+make all
 ```
 
 - Para ejecutar:
 
 ```bash
-línea de ejecución
+./pruebas_alumno || ./pruebas_chanutron
 ```
 
 - Para ejecutar con valgrind:
 ```bash
-línea con valgrind
+make valgrind-alumno || make valgrind-chanutron
 ```
 ---
-##  Funcionamiento
-
-Explicación de cómo funcionan las estructuras desarrolladas en el TP y el funcionamiento general del mismo.
-
-Aclarar en esta parte todas las decisiones que se tomaron al realizar el TP, cosas que no se aclaren en el enunciado, fragmentos de código que necesiten explicación extra, etc.
-
-Incluír **EN TODOS LOS TPS** los diagramas relevantes al problema (mayormente diagramas de memoria para explicar las estructuras, pero se pueden utilizar otros diagramas si es necesario).
-
-### Por ejemplo:
-
-El programa funciona abriendo el archivo pasado como parámetro y leyendolo línea por línea. Por cada línea crea un registro e intenta agregarlo al vector. La función de lectura intenta leer todo el archivo o hasta encontrar el primer error. Devuelve un vector con todos los registros creados.
+## Qué es un arbol?
+Un árbol es una estructura no lineal de datos compuesta de nodos. Un árbol que no tiene ningún nodo se llama árbol vacío o nulo. Un árbol que no está vacío consta de un nodo raíz y potencialmente muchos niveles de nodos adicionales que forman una jerarquía. Si un nodo, no posee hijos, se lo denomina, nodo hoja.
 
 <div align="center">
-<img width="70%" src="img/diagrama1.svg">
+<img width="70%" src="img/arbol_n_ario.png">
 </div>
 
-En el archivo `sarasa.c` la función `funcion1` utiliza `realloc` para agrandar la zona de memoria utilizada para conquistar el mundo. El resultado de `realloc` lo guardo en una variable auxiliar para no perder el puntero original en caso de error:
-
-```c
-int *vector = realloc(vector_original, (n+1)*sizeof(int));
-
-if(vector == NULL)
-    return -1;
-vector_original = vector;
-```
-
+## ¿Qué es un arbol binario?
+Es aquel árbol en donde cada nodo padre puede tener hasta dos hijos solamente.
 
 <div align="center">
-<img width="70%" src="img/diagrama2.svg">
+<img width="70%" src="img/arbol_binario.png">
 </div>
 
----
+## ¿Qué es un arbol binario de búsqueda? 
+Es aquel árbol que además de ser binario (dos nodos hijo máximo por padre), cumple con la convención de que el subárbol izquierdo contiene todos los elementos menores (en esta implementación son menores o iguales) al que contiene el nodo que se observa, y que todo el subárbol derecho, contiene todos los elementos mayores al nodo que se está observando.
 
-## Respuestas a las preguntas teóricas
-Incluír acá las respuestas a las preguntas del enunciado (si aplica).
+<div align="center">
+<img width="70%" src="img/arbol_binario_busqueda.png">
+</div>
+
+## Implementación
+Se decidió implementar las funciones de una manera pseudo recursiva, en donde se tiene una función que llama a una función recursiva (p.e: `abb_insertar` llama a `_abb_insertar_recursivo`).
+Si bien la recursividad puede ser difícil para implementar en un principio, se prefirió antes que utilizar engorrosos métodos con ciclos for/while. Lo importante con la recursividad es entender cual es el/los caso/s base, para poder luego autollamar a la función recursiva.
+La mayor dificultad estuvo, en encontrar una manera de remover nodos del árbol que tuvieran dos hijos.
+
+### Detalles de implementacion
+* En caso de tener un elemento repetido, se lo inserta a la izquierda.
+* En caso de tener que quitar un nodo con dos hijos, se busca como reemplazante al predecesor inorden. Este es el elemento más grande del subárbol izquierdo del nodo que se quiere quitar.
+
+## Esquema de memoria
+<div align="center">
+<img width="100%" src="img/diagrama_memoria.png">
+</div>
+
+## Operaciones básicas del abb (y su complejidad)
+Crear arbol
+Esta función pide memoria para una estructura del tipo abb_t. Su complejidad es `O(1)`, ya que solamente crea la estructura y la devuelve.
+
+### Insertar un elemento
+Con el comparador, la función decide por cual rama ir (si la comparación devuelve mayor,menor o igual al elemento). Entonces estamos subdividiendo el árbol por cada paso que damos, nos quedamos con la subrama izquierda o la derecha en cada instancia. Estamos diviendo en dos al árbol por cada subrama que elegimos. Por lo tanto la complejidad promedio es 
+`O(Log(n))` (particularmente es Logaritmo en base dos de n). Sin embargo, en esta implementación el árbol no se balancea, por lo tanto puede darse el caso que el árbol degenere en una lista, y por lo tanto, la complejidad del peor caso (que es el que nos interesa) es O(n). Se deben recorrer todos los elementos previos para insertar.
+
+<div align="center">
+<img width="70%" src="img/insercion_abb.png">
+</div>
+
+### Buscar un elemento
+Análogo a insertar, el peor de los casos es que tenga que recorrer todos los nodos para encontrar el elemento buscado. Por lo tanto la complejidad algorítmica es O(n).
+
+### Quitar un elemento
+Análogo a buscar, el peor de los casos es que tenga que recorrer todos los elementos del árbol para llegar al elemento buscado y quitarlo. Complejidad O(n).
+<div align="center">
+<img width="70%" src="img/abb_borrar_hoja.png">
+<br> Extracción de un nodo hoja.
+</div>
+
+<div align="center">
+<img width="70%" src="img/abb_borrar_nodo_con_hijo.png">
+<br> Extracción de un nodo con un hijo, el hijo toma el lugar del nodo padre.
+</div>
+
+<div align="center">
+<img width="70%" src="img/abb_borrar_nodo_hijos.png">
+<br> Extracción de un nodo con dos hijos. Se toma el predecesor inorden.
+</div>
+
+### Recorrer un arbol (Inorden, Preorden, Postorden)
+En todos los casos, la complejidad es O(n), ya que debo recorrer todos los elementos del arbol.
+
+<div align="center">
+<img width="70%" src="img/abb_recorrido.png">
+</div>
+
+### Destruir el arbol
+Es una operación de complejidad O(n). Debo recorrer todo el árbol para remover todos sus nodos.
+
